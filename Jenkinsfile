@@ -2,7 +2,7 @@ pipeline {
     agent any
 
        environment {
-        DOCKER_IMAGE = "nblinh/spring-boot-app"
+        DOCKER_IMAGE = "linhnb/spring-boot-app"
         K8S_NAMESPACE = "springboot-demo"
         DOCKER_CREDENTIALS_ID = 'linhnb@gmail.com' // Define Docker Hub credentials ID
         KUBECONFIG_CREDENTIALS_ID = 'Khongcogi80' // Define Kubernetes config credentials ID
@@ -33,9 +33,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "echo $UID"
                     sh "docker build -t spring-boot-app ."
-                    sh "docker tag spring-boot-app nblinh/spring-boot-app"
+                    sh "docker tag spring-boot-app linhnb/spring-boot-app"
                 }
             }
         }
@@ -43,16 +42,15 @@ pipeline {
         stage('Push to dockerhub') {
             steps {
                 script {
-                       withCredentials([string(credentialsId: 'dockerhub-password', variable: 'DOCKER_PASSWORD')]) {
-                sh """
-                    echo \$DOCKER_PASSWORD | docker login -u romilbhai --password-stdin
-                """
-                sh "docker push romilbhai/spring-boot-app:${env.BUILD_ID}"
-                sh "docker push romilbhai/spring-boot-app:latest"
-            }
+                    withCredentials([string(credentialsId: 'Khongcogi80', variable: 'DOCKER_PASSWORD')]) {
+                        sh """
+                            echo \$DOCKER_PASSWORD | docker login -u linhnb --password-stdin
+                        """
+                        sh "docker push linhnb/spring-boot-app"
                     }
                 }
             }
+        }
 
 
         stage('Deploy to Kubernetes') {
