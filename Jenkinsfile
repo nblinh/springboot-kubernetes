@@ -33,8 +33,8 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "docker build -t romilbhai/spring-boot-app:${env.BUILD_ID} ."
-                    sh "docker tag romilbhai/spring-boot-app:${env.BUILD_ID} romilbhai/spring-boot-app:latest"
+                    sh "docker build -t spring-boot-app ."
+                    sh "docker tag spring-boot-app nblinh/spring-boot-app"
                 }
             }
         }
