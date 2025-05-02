@@ -7,6 +7,9 @@ pipeline {
         DOCKER_CREDENTIALS_ID = 'dockerhub-credentials-id' // Define Docker Hub credentials ID
         KUBECONFIG_CREDENTIALS_ID = 'kubeconfig-springboot' // Define Kubernetes config credentials ID
     }
+    tools {
+        maven '3.9.9'
+    }
 
     stages {
         stage('Checkout') {
