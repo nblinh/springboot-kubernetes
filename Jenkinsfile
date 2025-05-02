@@ -4,8 +4,8 @@ pipeline {
        environment {
         DOCKER_IMAGE = "nblinh/spring-boot-app"
         K8S_NAMESPACE = "springboot-demo"
-        DOCKER_CREDENTIALS_ID = 'dockerhub-credentials-id' // Define Docker Hub credentials ID
-        KUBECONFIG_CREDENTIALS_ID = 'kubeconfig-springboot' // Define Kubernetes config credentials ID
+        DOCKER_CREDENTIALS_ID = 'linhnb@gmail.com' // Define Docker Hub credentials ID
+        KUBECONFIG_CREDENTIALS_ID = 'Khongcogi80' // Define Kubernetes config credentials ID
     }
     tools {
         maven '3.9.9'
@@ -33,6 +33,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
+                    sh "echo $UID"
                     sh "docker build -t spring-boot-app ."
                     sh "docker tag spring-boot-app nblinh/spring-boot-app"
                 }
