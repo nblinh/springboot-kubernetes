@@ -20,6 +20,8 @@ pipeline {
         stage('Build and Test') {
             steps {
                 script {
+                    sh "java -version"
+                    sh "mvn -version"
                     sh "mvn clean package"
                 }
             }
