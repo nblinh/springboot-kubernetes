@@ -42,9 +42,13 @@ pipeline {
         stage('Push to dockerhub') {
             steps {
                 script {
-                        sh "docker login -u linhnb -p Khongcogi80"
+                    withCredentials([string(credentialsId: 'docker-creds-token', variable: 'DOCKER_PASSWORD')]) {
+                        sh 'rm ~/.docker/config.json'
+                        sh """
+                            echo \$DOCKER_PASSWORD | docker login -u linhnb --password-stdin
+                        """
                         sh "docker push linhnb/spring-boot-app"
-
+                    }
                 }
             }
         }
