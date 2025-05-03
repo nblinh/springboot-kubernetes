@@ -42,7 +42,7 @@ pipeline {
         stage('Push to dockerhub') {
             steps {
                 script {
-                    withCredentials([string(credentialsId: 'Khongcogi80', variable: 'DOCKER_PASSWORD')]) {
+                    withCredentials([string(credentialsId: 'docker-creds-token', variable: 'DOCKER_PASSWORD')]) {
                         sh """
                             echo \$DOCKER_PASSWORD | docker login -u linhnb --password-stdin
                         """
